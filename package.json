@@ -1,11 +1,11 @@
 {
   "name": "falcor-doc-router",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Self-documenting Falcor router",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register $(find src -name \"*.test.js\")",
-    "compile": "babel src/graph-descriptor --out-dir graph-descriptor"
+    "compile": "babel src/graph-descriptor --ignore *.test.js --out-dir graph-descriptor"
   },
   "author": "",
   "license": "MIT",
