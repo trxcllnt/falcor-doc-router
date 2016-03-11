@@ -61,10 +61,13 @@ module.exports = class GraphDescriptorNode extends React.Component {
       <span className="node-line">
         <span className="tree-stuff" style={{whiteSpace:'pre',fontFamily:'"courier new",monospace'}}>
           {steps.map((step, idx) => {
-            const isLast = idx === steps.length - 1;
-            if (isLast) { return step ? '└─' : '├─'; }
-            else { return step ? '  ' : '│ '; }
-          })}
+            // "steps" is an array of booleans representing the path to here
+            // from root. "true" means the node in that position was last among
+            // its siblings. This enables drawing the "tree stuff".
+            const isAdjacent = idx === steps.length - 1;
+            if (isAdjacent) { return !step ? '├─' : '└─'; }
+            else { return !step ? '│ ' : '  '; }
+          }).join('')}
         </span>
         <strong className={isLeaf?'leaf-color':undefined} style={{color:isLeaf?style.color.leaf:'inherit'}}>{name}</strong>
         {(isWildcard || isLeaf) &&

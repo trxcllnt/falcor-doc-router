@@ -16,6 +16,11 @@ describe('graph-descriptor', () => {
       get() {},
       set() {}
     }, {
+      route: 'users[{keys:id}].avatar',
+      returns: 'reference into ["media", id]',
+      get() {},
+      set() {}
+    }, {
       route: 'users[{keys:id}]follower_list.length',
       returns: 'integer',
       get() {}
@@ -23,6 +28,11 @@ describe('graph-descriptor', () => {
       route: 'users[{keys:id}]follower_list[{ranges:indices}]',
       returns: 'reference into ["user", id]',
       get() {}
+    }, {
+      route: 'media[{keys:id}]["thumbnail_src","medium_src","large_src"]',
+      returns: 'string (url)',
+      get() {},
+      set() {}
     }]).descriptor();
     const reactEl = React.createElement(GraphDescriptor, { descriptor });
     const html = reactDomServer.renderToStaticMarkup(reactEl);

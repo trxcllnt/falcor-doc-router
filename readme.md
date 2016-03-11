@@ -58,3 +58,9 @@ var Router = docRouter.createClass([{
   get() { ... }
 }]);
 ```
+
+## Screenshot
+
+Example screenshot of output.
+
+![image](https://cloud.githubusercontent.com/assets/317786/13714536/63faea7e-e78c-11e5-94c3-f5f772c6cd52.png)
