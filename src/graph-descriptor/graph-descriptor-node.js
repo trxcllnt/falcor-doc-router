@@ -1,13 +1,15 @@
+'use strict';
 
-import React from 'react';
+const React = require('react');
 
 const identity = x => x;
+const defaultSteps = [];
 
-export default class GraphDescriptorNode extends React.Component {
+module.exports = class GraphDescriptorNode extends React.Component {
 
   render() {
 
-    const steps = this.props.steps;
+    const steps = this.props.steps || defaultSteps;
     const node = this.props.node;
     const name = node.name;
     const children = node.children;
@@ -56,7 +58,7 @@ export default class GraphDescriptorNode extends React.Component {
 
     return <li className={isLeaf ? 'is-leaf' : 'is-branch'}>
       <span className="node-line">
-        <span className="tree-stuff">
+        <span className="tree-stuff" style={{whiteSpace:'pre',fontFamily:'"courier new",monospace'}}>
           {steps.map((step, idx) => {
             const isLast = idx === steps.length - 1;
             if (isLast) { return step ? '└─' : '├─'; }
@@ -71,7 +73,7 @@ export default class GraphDescriptorNode extends React.Component {
         }
       </span>
       {hasChildren &&
-        <ul>
+        <ul style={{margin:0,padding:0,listStyle:'none'}}>
           {children.map((subchild, idx) => {
             const isLast = idx === children.length - 1;
             const substeps = steps.slice();
@@ -86,4 +88,4 @@ export default class GraphDescriptorNode extends React.Component {
       }
     </li>;
   }
-}
+};

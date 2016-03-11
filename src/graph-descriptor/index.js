@@ -1,10 +1,11 @@
+'use strict';
 
-import React from 'react';
-import GraphDescriptorNode from './graph-descriptor-node';
+const React = require('react');
+const GraphDescriptorNode = require('./graph-descriptor-node');
 
 const noChildren = [];
 
-export default class GraphDescriptor extends React.Component {
+module.exports = class GraphDescriptor extends React.Component {
 
   render() {
 
@@ -28,4 +29,4 @@ export default class GraphDescriptor extends React.Component {
       </ul>
     </div>;
   }
-}
+};
