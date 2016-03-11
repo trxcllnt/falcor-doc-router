@@ -35,3 +35,26 @@ var descriptor = Router.descriptor();
 var reactEl = React.createElement(GraphDescriptor, { descriptor });
 var html = reactDomServer.renderToStaticMarkup(reactEl);
 ```
+
+## Annotations
+
+In order for your JSON graph documentation to contain type information, you need to provide a `returns` annotation for each route.
+These are only consumed by falcor-doc-router, and are ignored by Falcor.
+For example:
+
+```js
+var Router = docRouter.createClass([{
+  route: 'users[{keys:id}]["username","email"]',
+  returns: 'string',
+  get() { ... },
+  set() { ... }
+}, {
+  route: 'users[{keys:id}].follower_list[{ranges:indices}]',
+  returns: 'reference to ["users", id]',
+  get() { ... }
+}, {
+  route: 'users[{keys:id}].follower_list.length',
+  returns: 'integer',
+  get() { ... }
+}]);
+```
