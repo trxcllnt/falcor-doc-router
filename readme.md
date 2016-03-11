@@ -1,5 +1,7 @@
 # Self-Documenting Falcor Router
 
+**Warning: This project is not yet in a coherent state. Please check back soon.**
+
 This lib is drop-in replacement for `FalcorRouter.createClass()`. The resulting class has one additional static method `.descriptor()` which returns a JSON object containing metadata about your JSON graph. This object can then be used to render documentation for your Falcor JSON graph.
 
 A `GraphDescriptor` React component is also provided which can be used to render a view of that object.
