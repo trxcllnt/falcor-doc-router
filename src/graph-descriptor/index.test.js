@@ -11,7 +11,18 @@ describe('graph-descriptor-node', () => {
 
   it('should render to string', () => {
     const descriptor = docRouter.createClass([{
-      route: 'foo.bar'
+      route: 'users[{keys:id}]["username","email","bio"]',
+      returns: 'string',
+      get() {},
+      set() {}
+    }, {
+      route: 'users[{keys:id}]follower_list.length',
+      returns: 'integer',
+      get() {}
+    }, {
+      route: 'users[{keys:id}]follower_list[{ranges:indices}]',
+      returns: 'reference into ["user", id]',
+      get() {}
     }]).descriptor();
     const reactEl = React.createElement(GraphDescriptor, { descriptor });
     const html = reactDomServer.renderToStaticMarkup(reactEl);

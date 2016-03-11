@@ -35,7 +35,7 @@ module.exports = class GraphDescriptorNode extends React.Component {
 
     if (isLeaf) {
       descriptors.push({
-        name: 'returns',
+        name: 'type',
         value: node.returns || 'unspecified'
       });
       let ops = [
@@ -66,10 +66,8 @@ module.exports = class GraphDescriptorNode extends React.Component {
           })}
         </span>
         <strong>{name}</strong>
-        {isWildcard || isLeaf &&
-          <span className="node-info">
-            ({ descriptors.map(d => `${d.name}: ${d.value}`).join(', ')})
-          </span>
+        {(isWildcard || isLeaf) &&
+          <span className="node-info"> ({ descriptors.map(d => `${d.name}: ${d.value}`).join(', ')})</span>
         }
       </span>
       {hasChildren &&
