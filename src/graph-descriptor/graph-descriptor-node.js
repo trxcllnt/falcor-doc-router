@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const style = require('./style');
 
 const identity = x => x;
 const defaultSteps = [];
@@ -65,7 +66,7 @@ module.exports = class GraphDescriptorNode extends React.Component {
             else { return step ? '  ' : '│ '; }
           })}
         </span>
-        <strong>{name}</strong>
+        <strong className={isLeaf?'leaf-color':undefined} style={{color:isLeaf?style.color.leaf:'inherit'}}>{name}</strong>
         {(isWildcard || isLeaf) &&
           <span className="node-info"> ({ descriptors.map(d => `${d.name}: ${d.value}`).join(', ')})</span>
         }

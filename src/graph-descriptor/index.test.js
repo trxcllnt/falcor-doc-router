@@ -7,7 +7,7 @@ const GraphDescriptor = require('./');
 const React = require('react');
 const reactDomServer = require('react-dom/server');
 
-describe('graph-descriptor-node', () => {
+describe('graph-descriptor', () => {
 
   it('should render to string', () => {
     const descriptor = docRouter.createClass([{

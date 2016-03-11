@@ -2,6 +2,7 @@
 
 const React = require('react');
 const GraphDescriptorNode = require('./graph-descriptor-node');
+const style = require('./style');
 
 const noChildren = [];
 
@@ -15,8 +16,8 @@ module.exports = class GraphDescriptor extends React.Component {
     return <div className="graph-descriptor" style={{whiteSpace:'nowrap'}}>
       <h2>JSON Graph Documentation</h2>
       <p>
-        Note: Leaf nodes are shown as <strong className="leaf-color">this</strong>.
-        Nodes preceded by a <strong>:color</strong> are wildcards that match multiple values.
+        Note: Leaf nodes are shown as <strong className="leaf-color" style={{color:style.color.leaf}}>this</strong>.
+        Nodes preceded by a <strong>:colon</strong> are wildcards that match multiple values.
       </p>
       <ul style={{listStyle:'none',margin:0,padding:0}}>
         {children.map((child, idx) =>
