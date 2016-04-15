@@ -65,8 +65,8 @@ module.exports = class GraphDescriptorNode extends React.Component {
             // from root. "true" means the node in that position was last among
             // its siblings. This enables drawing the "tree stuff".
             const isAdjacent = idx === steps.length - 1;
-            if (isAdjacent) { return !step ? '├─' : '└─'; }
-            else { return !step ? '│ ' : '  '; }
+            if (isAdjacent) { return !step ? '\u251C\u2500' : '\u2514\u2500'; }
+            else { return !step ? '\u2502\u00A0' : '\u00A0\u00A0'; }
           }).join('')}
         </span>
         <strong className={isLeaf?'leaf-color':undefined} style={{color:isLeaf?style.color.leaf:'inherit'}}>{name}</strong>

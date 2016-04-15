@@ -11,8 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "falcor-path-syntax": "^0.2.4",
-    "falcor-router": "^0.3.0",
-    "react": "^0.14.7"
+    "falcor-router": "^0.4.0",
+    "react": "^15.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.2.0",
@@ -20,8 +20,9 @@
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.7.2",
     "cheerio": "^0.20.0",
+    "eslint": "^2.8.0",
     "eslint-plugin-react": "^4.2.1",
     "mocha": "^2.4.5",
-    "react-dom": "^0.14.7"
+    "react-dom": "^15.0.1"
   }
 }
