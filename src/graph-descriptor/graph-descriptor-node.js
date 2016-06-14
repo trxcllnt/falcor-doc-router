@@ -8,8 +8,17 @@ const defaultSteps = [];
 
 module.exports = class GraphDescriptorNode extends React.Component {
 
+  leafNodeClick() {
+    const path = this.props.path;
+    const fn = this.props.onLeafNodeClick;
+    if (fn) {
+      fn(path);
+    }
+  }
+
   render() {
 
+    const path = this.props.path;
     const steps = this.props.steps || defaultSteps;
     const node = this.props.node;
     const name = node.name;
@@ -57,8 +66,19 @@ module.exports = class GraphDescriptorNode extends React.Component {
       });
     }
 
+    const isClickable = !!this.props.onLeafNodeClick && isLeaf;
+    const nodeStyle = {
+      color: isLeaf ? style.color.leaf : 'inherit',
+    };
+    const lineStyle = {
+      cursor: isClickable ? 'pointer' : 'default',
+    };
+    const lineClick = isClickable
+      ? this.leafNodeClick.bind(this)
+      : undefined;
+
     return <li className={isLeaf ? 'is-leaf' : 'is-branch'}>
-      <span className="node-line">
+      <span className="node-line" style={lineStyle} onClick={lineClick}>
         <span className="tree-stuff" style={{whiteSpace:'pre',fontFamily:'"courier new",monospace'}}>
           {steps.map((step, idx) => {
             // "steps" is an array of booleans representing the path to here
@@ -69,7 +89,9 @@ module.exports = class GraphDescriptorNode extends React.Component {
             else { return !step ? '\u2502\u00A0' : '\u00A0\u00A0'; }
           }).join('')}
         </span>
-        <strong className={isLeaf?'leaf-color':undefined} style={{color:isLeaf?style.color.leaf:'inherit'}}>{name}</strong>
+        <strong className={isLeaf ? 'leaf-color' : undefined} style={nodeStyle}>
+          {name}
+        </strong>
         {(isWildcard || isLeaf) &&
           <span className="node-info"> ({ descriptors.map(d => `${d.name}: ${d.value}`).join(', ')})</span>
         }
@@ -84,6 +106,8 @@ module.exports = class GraphDescriptorNode extends React.Component {
               key={subchild.name}
               node={subchild}
               steps={substeps}
+              path={path.concat(subchild)}
+              onLeafNodeClick={this.props.onLeafNodeClick}
             />;
           })}
         </ul>
