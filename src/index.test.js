@@ -31,7 +31,7 @@ describe('self documenting router', () => {
     const descriptor = Router.createClass([{
       route: '["foo","bar"]'
     }]).descriptor();
-    assert.deepEqual(descriptor.children.map(ch => ch.name), ['foo','bar']);
+    assert.deepEqual(descriptor.children.map(ch => ch.name), ['bar','foo']);
   });
 
   it('should describe second level simple routes', () => {
@@ -52,7 +52,7 @@ describe('self documenting router', () => {
     const descriptor = Router.createClass([{
       route: '["foo","bar"]["baz","qux"]'
     }]).descriptor();
-    assert.deepEqual(descriptor.children.map(ch => ch.name), ['foo','bar']);
+    assert.deepEqual(descriptor.children.map(ch => ch.name), ['bar','foo']);
     assert.deepEqual(descriptor.children[0].children.map(ch => ch.name), ['baz','qux']);
     assert.deepEqual(descriptor.children[1].children.map(ch => ch.name), ['baz','qux']);
   });
@@ -163,6 +163,19 @@ describe('self documenting router', () => {
     assert.strictEqual(descriptor.children[0].children[0].children.length, 1);
     assert.strictEqual(descriptor.children[0].children[1].name, 'bar');
     assert.strictEqual(descriptor.children[0].children[0].children[0].name, ':foo');
+  });
+
+  it('should alphabetize routes', () => {
+    const descriptor = Router.createClass([{
+      route: 'b["y","x"]'
+    },{
+      route: 'a'
+    }]).descriptor();
+    assert.strictEqual(descriptor.children[0].name, 'a');
+    assert.strictEqual(descriptor.children[1].name, 'b');
+
+    assert.strictEqual(descriptor.children[1].children[0].name, 'x');
+    assert.strictEqual(descriptor.children[1].children[1].name, 'y');
   });
 
   it('should create a falcor router class among other things', () => {

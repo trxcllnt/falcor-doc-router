@@ -97,5 +97,13 @@ function transformToFinal(desc, name) {
       final.children.push(transformToFinal(subDesc, prop));
     }
   }
+  if (final.children) {
+    final.children.sort((a, b) => {
+      if (a.name < b.name) { return -1; }
+      else if (a.name === b.name) { return 0; }
+      else if (a.name > b.name) { return 1; }
+      else { return 0; }
+    });
+  }
   return final;
 }

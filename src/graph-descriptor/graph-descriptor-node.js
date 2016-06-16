@@ -8,12 +8,25 @@ const defaultSteps = [];
 
 module.exports = class GraphDescriptorNode extends React.Component {
 
+  constructor(props) {
+    super(props);
+    const isCollapsed = true;
+    this.state = { isCollapsed };
+  }
+
   leafNodeClick() {
     const path = this.props.path;
     const fn = this.props.onLeafNodeClick;
     if (fn) {
       fn(path);
     }
+  }
+
+  toggleCollapse(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    const isCollapsed = !this.state.isCollapsed;
+    this.setState({ isCollapsed });
   }
 
   render() {
@@ -27,6 +40,7 @@ module.exports = class GraphDescriptorNode extends React.Component {
     const isLeaf = node.isLeaf;
     const isWildcard = node.isWildcard;
     const descriptors = [];
+    const isCollapsed = this.state.isCollapsed;
 
     if (isWildcard) {
       let wildcardDesc;
@@ -66,16 +80,17 @@ module.exports = class GraphDescriptorNode extends React.Component {
       });
     }
 
-    const isClickable = !!this.props.onLeafNodeClick && isLeaf;
+    const isLeafClickable = !!this.props.onLeafNodeClick && isLeaf;
+    const isBranchClickable = !isLeaf;
     const nodeStyle = {
       color: isLeaf ? style.color.leaf : 'inherit',
     };
     const lineStyle = {
-      cursor: isClickable ? 'pointer' : 'default',
+      cursor: isLeafClickable || isBranchClickable ? 'pointer' : 'default',
     };
-    const lineClick = isClickable
+    const lineClick = isLeafClickable
       ? this.leafNodeClick.bind(this)
-      : undefined;
+      : this.toggleCollapse.bind(this);
 
     return <li className={isLeaf ? 'is-leaf' : 'is-branch'}>
       <span className="node-line" style={lineStyle} onClick={lineClick}>
@@ -96,7 +111,7 @@ module.exports = class GraphDescriptorNode extends React.Component {
           <span className="node-info"> ({ descriptors.map(d => `${d.name}: ${d.value}`).join(', ')})</span>
         }
       </span>
-      {hasChildren &&
+      {hasChildren && !isCollapsed &&
         <ul style={{margin:0,padding:0,listStyle:'none'}}>
           {children.map((subchild, idx) => {
             const isLast = idx === children.length - 1;
