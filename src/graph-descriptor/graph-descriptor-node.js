@@ -34,13 +34,15 @@ module.exports = class GraphDescriptorNode extends React.Component {
     const path = this.props.path;
     const steps = this.props.steps || defaultSteps;
     const node = this.props.node;
+    const propsIsCollapsed = this.props.isCollapsed;
     const name = node.name;
     const children = node.children;
     const hasChildren = children && children.length > 0;
     const isLeaf = node.isLeaf;
     const isWildcard = node.isWildcard;
     const descriptors = [];
-    const isCollapsed = this.state.isCollapsed;
+    const isCollapsed = typeof propsIsCollapsed !== 'undefined' ?
+      propsIsCollapsed : this.state.isCollapsed;
 
     if (isWildcard) {
       let wildcardDesc;
@@ -121,6 +123,7 @@ module.exports = class GraphDescriptorNode extends React.Component {
               key={subchild.name}
               node={subchild}
               steps={substeps}
+              isCollapsed={isCollapsed}
               path={path.concat(subchild)}
               onLeafNodeClick={this.props.onLeafNodeClick}
             />;
